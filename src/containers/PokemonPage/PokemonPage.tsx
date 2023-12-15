@@ -23,6 +23,7 @@ const PokemonPage = ({ pokemon }: PokemonPageProps): JSX.Element => {
      {fetchedPokemon?.name}
      {fetchedPokemon?.weight}
      {fetchedPokemon?.height}
+     {fetchedPokemon?.id}
     </div>
   );
 };
