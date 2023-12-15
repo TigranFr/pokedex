@@ -1,0 +1,101 @@
+.title{
+    font-size: 60px;
+}
+.navbar{
+    width: 1200px;
+    height: 70px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    border: 1px solid #ff7b7b;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #ff7b7b;
+    box-shadow: rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset, rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+   
+    .selectType{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 200px;
+        height: 60px;
+        background-color: #fff;
+        border-radius: 5px;
+        cursor: pointer;
+        .bx_bottom{
+            margin-left: 25px;
+            font-size: 30px;
+        }
+    }
+    .filter{
+        position: relative;
+        .filterByType{
+            width: 150px;
+            height: auto;
+            position: absolute;
+            top: 130%;
+            left:10%;
+        }
+    }
+    .sort{
+        position: relative;
+        .sortByCriteries{
+            width: 150px;
+            height: auto;
+            position: absolute;
+            top: 130%;
+            left:10%;
+        }
+    }
+    .pagination{
+        position: relative;
+        .setPaginationCount{
+            width: 150px;
+            height: auto;
+            position: absolute;
+            top: 130%;
+            left:10%;
+        }
+    }
+    
+    .btn{
+        width: 150px;
+        border: none;
+        border-radius: 5px;
+        padding: 10px;
+        margin: 5px;
+        outline: none;
+        background-color: #f54e4e;
+        color: white;
+        text-transform: capitalize;
+        cursor: pointer;
+        &:hover{
+            background-color: #ff8383;
+        }
+    }
+    .searchField{
+        display: flex;
+        .searchInput{
+            border: none;
+            outline: none;
+            padding: 10px;
+            padding-left: 20px;
+            font-size: 18px;
+            font-family: Roboto Mono;
+            width: 300px;
+            height: 40px;
+            margin-left: 60px;
+            border-radius: 5px;
+        }
+        .bx_s{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 58px;
+            font-size: 50px;
+        }
+    }
+    
+}
