@@ -1,14 +1,23 @@
 import React from 'react'
 import './App.css'
-import MainPage from './containers/MainPage/MainPage'
-import Navbar from './containers/Navbar/Navbar'
+import Home from './pages/Home';
+import { BrowserRouter , Routes , Route } from 'react-router-dom';
+import { ThemeProvider } from '@emotion/react';
+import theme from './theme';
+import { CssBaseline } from '@mui/material';
+import PokemonDetailed from './components/PokemonDetailed';
 
 function App(): JSX.Element {
   return (
-    <div className="App">
-      <Navbar/>
-      <MainPage/>
-    </div>
+    <ThemeProvider theme={theme}>
+      <CssBaseline/>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" Component={Home}/>
+          <Route path="pokemon/:pokemonName" Component={PokemonDetailed}/>
+        </Routes>
+      </BrowserRouter>
+    </ThemeProvider>
   )
 }
 
