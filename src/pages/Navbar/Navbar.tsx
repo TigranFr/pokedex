@@ -8,11 +8,13 @@ interface INavbarProps{
   handleOnClickPerPage: (pokemonPerPage:number) => void
   handleOnClickType: (pokemonType:IType | null) => void
   handleOnChange:(pokName:string) => void
+  handleAtoZ:() => void
+  handleZtoA:() => void
   selectedType:IType | null,
   pokemonPerPage:number
 }
 
-const Navbar = ({handleOnClickPerPage , handleOnClickType ,handleOnChange, selectedType , pokemonPerPage}:INavbarProps): JSX.Element => {
+const Navbar = ({handleAtoZ , handleZtoA ,handleOnClickPerPage , handleOnClickType ,handleOnChange, selectedType , pokemonPerPage}:INavbarProps): JSX.Element => {
   const [isTypesOpen, setIsTypesOpen] = useState<boolean>(false)
   const [isSortingOpen, setIsSortingOpen] = useState<boolean>(false)
   const [isPaginationOpen, setIsPaginationOpen] = useState<boolean>(false)
@@ -118,8 +120,12 @@ const Navbar = ({handleOnClickPerPage , handleOnClickType ,handleOnChange, selec
           </div>
           {isSortingOpen ? (
             <div ref={sortRef} className={styles.sortByCriteries}>
-              <button className={styles.btn}>A-Z</button>
-              <button className={styles.btn}>Z-A</button>
+              <button className={styles.btn} onClick={()=>{
+                handleAtoZ();
+              }}>A-Z</button>
+              <button className={styles.btn} onClick={()=>{
+                handleZtoA();
+              }}>Z-A</button>
             </div>
           ) : (
             ''
