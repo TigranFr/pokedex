@@ -21,14 +21,14 @@ const Pagination: React.FC<PaginationProps> = ({ currentPage, totalPages, goToPa
     }
   };
 
-  const renderPageNumbers = ():JSX.Element[] => {
-    const MAX_VISIABLE_PAGES = 5; 
-
+  const renderPageNumbers = (): JSX.Element[] => {
+    const MAX_VISIABLE_PAGES = 5;
+  
     const pageNumbers = [];
-
+  
     let visiableStartPage = 1;
     let visiablEndPage = totalPages;
-
+  
     if (totalPages > MAX_VISIABLE_PAGES) {
       if (currentPage > Math.floor(MAX_VISIABLE_PAGES / 2)) {
         visiableStartPage = Math.max(currentPage - Math.floor(MAX_VISIABLE_PAGES / 2), 1);
@@ -37,24 +37,28 @@ const Pagination: React.FC<PaginationProps> = ({ currentPage, totalPages, goToPa
         visiablEndPage = MAX_VISIABLE_PAGES;
       }
     }
-
+  
     if (visiableStartPage !== 1) {
       pageNumbers.push(
-        <Button key={1} variant="contained" onClick={() => { goToPage(1); }}>
+        <Button key={1}  onClick={() => { goToPage(1); }} style={{ marginLeft: '10px' , background:'#ff8383' , color:'white'}}>
           1
         </Button>
       );
       if (visiableStartPage > 2) {
-        pageNumbers.push(<span key="ellipsisStart" style={{marginLeft:'10px'}}>...</span>);
+        pageNumbers.push(<span key="ellipsisStart" style={{ marginLeft: '10px' }}>...</span>);
       }
     }
-
+  
     for (let i = visiableStartPage; i <= visiablEndPage; i++) {
       pageNumbers.push(
         <Button
           key={i}
           variant="contained"
-          style={{ backgroundColor: '#ff8383', color: 'white', marginLeft:'10px' }}
+          style={{
+            backgroundColor: i === currentPage ? '#ff5050' : '#ff8383',
+            color: 'white',
+            marginLeft: '10px',
+          }}
           onClick={() => { goToPage(i); }}
         >
           {i}
@@ -62,23 +66,22 @@ const Pagination: React.FC<PaginationProps> = ({ currentPage, totalPages, goToPa
       );
     }
   
-
     if (visiablEndPage !== totalPages) {
       if (visiablEndPage < totalPages - 1) {
-        pageNumbers.push(<span key="ellipsisEnd"style={{marginRight:'10px' , marginLeft:'10px'}}>...</span>);
+        pageNumbers.push(<span key="ellipsisEnd" style={{ marginRight: '10px', marginLeft: '10px' }}>...</span>);
       }
       pageNumbers.push(
-        <Button key={totalPages} variant="contained" onClick={() => { goToPage(totalPages); }}>
+        <Button key={totalPages} onClick={() => { goToPage(totalPages); }} style={{ marginLeft: '10px', background:'#ff8383' , color:'white' }}>
           {totalPages}
         </Button>
       );
     }
-
+  
     return pageNumbers;
   };
 
   return (
-    <div style={{marginTop:'50px', width:'auto'}}>
+    <div style={{width:'1330px' , margin:'20px auto'}}>
       <Button variant="contained" style={{ backgroundColor: '#ff8383', color: 'white', marginRight:'10px'}} disabled={currentPage === 1} onClick={handlePrevPage}>
         Prev
       </Button>

@@ -1,0 +1,54 @@
+@mixin flex-column{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.maincontainer{
+    position: relative;
+    width: 250px;
+    height: 320px;
+    .theCard{
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        transform-style: preserve-3d;
+        transition: all 1s ease;
+
+        &:hover{
+            transition: all 1s ease;
+            transition-delay: 1s;
+            transform: rotateY(180deg);
+        }
+        .theFront{
+            @include flex-column;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            background:#ffffff;
+            box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+            border-radius: 10px;
+            img{
+                width: 90%;
+                height: auto;
+            }
+            span{
+                font-size: 25px;
+                font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            }
+        }
+        .theBack{
+            @include flex-column;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            background:#ffffff;
+            transform: rotateY(180deg);
+            box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+            border-radius: 10px;
+        }
+    }
+}

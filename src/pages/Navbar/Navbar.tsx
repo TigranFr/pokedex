@@ -1,22 +1,28 @@
 import axios from 'axios'
 import React, { useEffect, useRef, useState } from 'react'
 import useOnClickOutside from '../../hooks/useOnClickOutside'
+import { type TypeListResponse, type IType } from '../../interfaces/pokemon.interface'
 import styles from './Navbar.module.scss'
 
 interface INavbarProps{
-  handleOnClick: (pokemonPerPage:number) => void
+  handleOnClickPerPage: (pokemonPerPage:number) => void
+  handleOnClickType: (pokemonType:IType | null) => void
+  handleOnChange:(pokName:string) => void
+  selectedType:IType | null,
+  pokemonPerPage:number
 }
 
-const Navbar = ({handleOnClick}:INavbarProps): JSX.Element => {
+const Navbar = ({handleOnClickPerPage , handleOnClickType ,handleOnChange, selectedType , pokemonPerPage}:INavbarProps): JSX.Element => {
   const [isTypesOpen, setIsTypesOpen] = useState<boolean>(false)
   const [isSortingOpen, setIsSortingOpen] = useState<boolean>(false)
   const [isPaginationOpen, setIsPaginationOpen] = useState<boolean>(false)
+  const [value , setValue] = useState<string>("");
 
   const typeRef = useRef<HTMLDivElement | null>(null)
   const sortRef = useRef<HTMLDivElement | null>(null)
   const paginationRef = useRef<HTMLDivElement | null>(null)
 
-  const [pokemonTypes, setPokemonTypes] = useState<string[]>([])
+  const [pokemonTypes, setPokemonTypes] = useState<IType[]>([])
 
   const openTypes = (): void => {
     setIsTypesOpen(true)
@@ -48,8 +54,8 @@ const Navbar = ({handleOnClick}:INavbarProps): JSX.Element => {
   useEffect(() => {
     const fetchPokemonTypes = async (): Promise<void> => {
       try {
-        const response = await axios.get('https://pokeapi.co/api/v2/type')
-        const fetchedTypes = response.data.results.map((type: any) => type.name)
+        const response = await axios.get<TypeListResponse>('https://pokeapi.co/api/v2/type')
+        const fetchedTypes = response.data.results.map((type: IType) => type)
         setPokemonTypes(fetchedTypes)
       } catch (error) {
         console.error('Error fetching Pokemon types:', error)
@@ -58,29 +64,45 @@ const Navbar = ({handleOnClick}:INavbarProps): JSX.Element => {
 
     void fetchPokemonTypes()
   }, [])
+
+
   return (
     <>
       <h1 className={styles.title}>Welcome to the Pokedex app </h1>
       <nav className={styles.navbar}>
-        <div className={styles.searchField}>
+        <form className={styles.searchField} onSubmit={(event)=>{
+          event.preventDefault();
+          handleOnChange(value);
+        }}>
           <input
             type="text"
             className={styles.searchInput}
-            placeholder="Search pokemon"
+            placeholder="Pokemon by name"
+            value={value}
+            onChange={(event)=>{
+              setValue(event.target.value);
+            }}
           />
           <i className={`${styles.bx_s} bx bx-search`}></i>
-        </div>
+        </form>
 
         <div className={styles.filter}>
-          <div className={styles.selectType} onClick={openTypes}>
-            Select Type
-            <i className={`${styles.bx_bottom} bx bx-chevron-down`}></i>
-          </div>
+        <div className={styles.selectType} onClick={openTypes}>
+          {(selectedType != null) ? (
+            <span>{selectedType.name.charAt(0).toUpperCase() + selectedType.name.slice(1)}</span>
+          ) : (
+            <span>Select Type</span>
+          )}
+           <i className={`${styles.bx_bottom} bx bx-chevron-down`}></i>
+        </div>
+        
           {isTypesOpen ? (
             <div ref={typeRef} className={styles.filterByType}>
               {pokemonTypes.map((type, index) => (
-                <button key={index} value={type} className={styles.btn}>
-                  {type}
+                <button key={index} value={type.name} className={styles.btn} onClick={()=>{
+                  handleOnClickType(type);
+                }}>
+                  {type.name}
                 </button>
               ))}
             </div>
@@ -106,14 +128,14 @@ const Navbar = ({handleOnClick}:INavbarProps): JSX.Element => {
 
         <div className={styles.pagination}>
           <div className={styles.selectType} onClick={openPagination}>
-            Per Page
+            Per Page : {pokemonPerPage}
             <i className={`${styles.bx_bottom} bx bx-chevron-down`}></i>
           </div>
           {isPaginationOpen ? (
             <div ref={paginationRef} className={styles.setPaginationCount}>
-              <button className={styles.btn} value={10} onClick={()=> { handleOnClick(10)}}>10</button>
-              <button className={styles.btn} value={15} onClick={()=> {handleOnClick(15)}}>15</button>
-              <button className={styles.btn} value={20} onClick={()=>{handleOnClick(20)}}>20</button>
+              <button className={styles.btn} value={10} onClick={()=> {handleOnClickPerPage(10)}}>10</button>
+              <button className={styles.btn} value={15} onClick={()=> {handleOnClickPerPage(15)}}>15</button>
+              <button className={styles.btn} value={20} onClick={()=>{handleOnClickPerPage(20)}}>20</button>
             </div>
           ) : (
             ''

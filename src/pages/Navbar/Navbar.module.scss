@@ -1,10 +1,25 @@
+@mixin dropdown{
+    position: absolute;
+    top: 90%;
+    z-index: 10;
+    background-color: white;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .title{
     font-size: 60px;
+    text-align: center;
 }
 .navbar{
-    width: 1200px;
+    width: 1330px;
     height: 70px;
     margin: 0 auto;
+    margin-bottom: 20px;
     display: flex;
     align-items: center;
     justify-content: space-around;
@@ -31,31 +46,32 @@
     .filter{
         position: relative;
         .filterByType{
-            width: 150px;
-            height: auto;
+            display: grid;
+            grid-template-columns: repeat(2 , auto);
             position: absolute;
-            top: 130%;
-            left:10%;
+            top: 90%;
+            right: -30%;
+            z-index: 10;
+            background-color: white;
+            border-radius: 10px;
         }
     }
     .sort{
         position: relative;
         .sortByCriteries{
-            width: 150px;
-            height: auto;
-            position: absolute;
-            top: 130%;
-            left:10%;
+            @include dropdown;
+            button{
+                width: 90%;
+            }
         }
     }
     .pagination{
         position: relative;
         .setPaginationCount{
-            width: 150px;
-            height: auto;
-            position: absolute;
-            top: 130%;
-            left:10%;
+            @include dropdown;
+            button{
+                width: 90%;
+            }
         }
     }
     

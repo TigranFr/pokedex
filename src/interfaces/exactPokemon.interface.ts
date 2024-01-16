@@ -105,7 +105,7 @@ export interface HomeSprite  {
 };
 
 export interface OfficialArtwork  {
-  front_default: string | null;
+  front_default: string;
 };
 
 export interface Sprites  {

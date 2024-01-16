@@ -1,0 +1,154 @@
+@mixin flex{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@mixin flex-column{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.pokemonDetailed{
+    @include flex;
+    .Container{
+        @include flex-column;
+        .imageContainer{
+            @include flex;
+            justify-content: space-around;
+            width: 900px;
+            height: 400px;
+            background-color: #66ebff;
+            border-bottom-right-radius: 10px;
+            border-bottom-left-radius:10px;
+            box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+
+            .pokemonImage{
+                width: 300px;
+                height: auto;
+            }
+            .pokemonName{
+                font-size: 45px;
+                font-family: 'Courier New', Courier, monospace;
+                font-weight: bold;
+                margin-top: 10px;
+                text-transform: capitalize;                
+            }
+        }
+        .pokemonBasicInfo{
+            @include flex-column;
+            box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+            margin-top: 40px;
+            border-radius: 10px;
+            .bwh{
+                width: 900px;
+                @include flex;
+                justify-content: space-around;
+                margin-top: 30px;
+                padding: 10px;
+                border-radius: 10px;
+
+                .bwhItem{
+                    @include flex-column;
+                    .bwhItemSpan{
+                        font-size: 25px;
+                        font-weight: bold;
+                        font-family: 'Courier New', Courier, monospace;
+                        border-bottom: 2px solid black
+                    }
+                    .bwhItemDiv{
+                        @include flex;
+                        width: 200px;
+                        height: 60px;
+                        border-radius: 10px;
+                        background-color: black;
+                        font-size: 25px;
+                        font-family: 'Courier New', Courier, monospace;
+                        font-weight: bold;
+                        color: white;
+                        margin-top: 10px;
+                    }
+                }
+            }
+            .abilitiesTypes{
+                width: 900px;
+                @include flex;
+                justify-content: space-around;
+                padding: 10px;
+                margin-top: 20px;
+                border-radius: 10px;
+
+                .abilitiesTypesItem{
+                    @include flex-column;
+                    .abilitiesTypesSpan{
+                        font-size: 25px;
+                        font-weight: bold;
+                        font-family: 'Courier New', Courier, monospace;
+                        border-bottom: 2px solid black
+
+                    }
+                    .abilitiesTypesDiv{
+                        @include flex;
+                        width: auto;
+                        .abilitiesTypeDivItem{
+                            @include flex;
+                            width: auto;
+                            padding: 0 10px;
+                            height: 60px;
+                            border-radius: 10px;
+                            background-color: black;
+                            font-size: 25px;
+                            font-family: 'Courier New', Courier, monospace;
+                            font-weight: bold;
+                            color: white;
+                            margin:10px;
+                        }
+                    }
+                }
+            }
+        }
+        .statsContainer{
+            @include flex-column;
+            width: 900px;
+            box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+            margin:40px 0;
+            border-radius: 10px;
+            .statsContainerHeader{
+                font-size: 30px;
+                font-family: 'Courier New', Courier, monospace;
+                font-weight: bold;
+                border-bottom: 2px solid black;
+                margin-bottom: 40px;
+            }
+            .statsContainerWrapper{
+                @include flex-column;
+                margin-bottom: 30px;
+                div{
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    width: 500px;
+                    .span1{
+                        font-size: 30px;
+                        font-family: 'Courier New', Courier, monospace;
+                        font-weight: bold;
+                        text-transform: capitalize
+                    }
+                    .span2{
+                        @include flex;
+                        font-size: 25px;
+                        font-family: 'Courier New', Courier, monospace;
+                        font-weight: bold;
+                        width: 100px;
+                        height: 100px;
+                        border: 3px solid black;
+                        border-radius: 50%;
+                        margin-bottom: 10px;
+                    }
+                }
+            }
+        }
+    }
+}
