@@ -11,10 +11,42 @@
     flex-direction: column;
 }
 
+@mixin button{
+    width: 300px;
+    height:50px;
+    background-color: black;
+    color: white;
+    text-decoration: none;
+    @include flex;
+    font-size: 20px;
+    border-radius: 5px;
+    font-family: 'Courier New', Courier, monospace;
+    margin-bottom: 10px;
+    transition: all 0.5s;
+    &:hover{
+        background-color: gray;
+        border-radius: 10px
+    }
+}
+
 .pokemonDetailed{
     @include flex;
     .Container{
         @include flex-column;
+        .homePageButton{
+            @include button;
+            margin-top: 10px
+        }
+        .btnDiv{
+            @include flex;
+            justify-content: space-between;
+            width: 900px;
+            .npbutton{
+                @include button;
+             }
+           
+        }
+       
         .imageContainer{
             @include flex;
             justify-content: space-around;

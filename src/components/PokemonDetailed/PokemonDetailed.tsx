@@ -1,5 +1,6 @@
 import React from 'react'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
+import usePokemonById from '../../hooks/getPokemonById';
 import usePokemon from '../../hooks/usePokemon'
 import styles from './PokemonDetailed.module.scss';
 
@@ -7,12 +8,44 @@ const PokemonDetailed = (): JSX.Element => {
   const { pokemonName } = useParams()
   const { pokemon, isLoading } = usePokemon({ pokemonName })
 
+  let previousPokemonID: number | null = null;
+  let nextPokemonID: number | null = null;
+  
+  if (pokemon?.id != null) {
+    if (pokemon.id === 1) {
+      previousPokemonID = null;
+      nextPokemonID = pokemon.id + 1;
+    } else if (pokemon.id === 10277) {
+      previousPokemonID = pokemon.id - 1;
+      nextPokemonID = null;
+    } else if (pokemon.id === 1025) {
+      previousPokemonID = pokemon.id - 1;
+      nextPokemonID = 10001;
+    } else if (pokemon.id === 10001) {
+      previousPokemonID = 1025;
+      nextPokemonID = pokemon.id + 1;
+    } else {
+      previousPokemonID = pokemon.id - 1;
+      nextPokemonID = pokemon.id + 1;
+    }
+  }
+
+  const {previousPokemonById  , nextPokemonById } = usePokemonById({previousPokemonID , nextPokemonID});
+  
+
   return (
     <div className={styles.pokemonDetailed}>
         {isLoading 
             ? <div>Loading...</div> 
             : <div className={styles.Container}>
                 <>
+                <Link className={styles.homePageButton} to="/">Go to home page</Link>
+                <h1>{pokemon?.id}</h1>
+                <div className={styles.btnDiv}>
+                    {(previousPokemonById != null) ? <Link className ={styles.npbutton} to={`/pokemon/${previousPokemonById.name}`}>Prev : {previousPokemonById.name}</Link> : null}
+                    {(nextPokemonById != null) ? <Link className={styles.npbutton}to={`/pokemon/${nextPokemonById.name}`}> Next :{nextPokemonById.name}</Link> : null}
+                </div>
+               
                     <div className={styles.imageContainer}>
                         <img className={styles.pokemonImage} src={pokemon?.sprites.other['official-artwork'].front_default}/>
                         <span className={styles.pokemonName}>{pokemon?.name}</span>
